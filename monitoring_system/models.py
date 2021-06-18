@@ -4,6 +4,15 @@ import uuid
 from django.db import models
 
 
+class Doctor(models.Model):
+    uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
+    name = models.CharField(null=True)
+    department = models.CharField(null=True)
+
+    class Meta:
+        db_table = 'doctors'
+
+
 class RegistryAddress(models.Model):
     uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
     region = models.CharField(null=True)
@@ -28,6 +37,7 @@ class Patient(models.Model):
     oms = models.CharField(null=True)
     insurance = models.CharField(null=True)
     passport = models.CharField(null=True)
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'patients'
