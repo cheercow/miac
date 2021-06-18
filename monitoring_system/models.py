@@ -31,3 +31,14 @@ class Patient(models.Model):
 
     class Meta:
         db_table = 'patients'
+
+
+class Measurement(models.Model):
+    uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
+    date = models.DateField(null=True, default=datetime.datetime.now())
+    upper_point = models.IntegerField(null=True)
+    lower_point = models.IntegerField(null=True)
+    patient = models.ForeignKey(Patient, null=True, on_delete=models.PROTECT)
+
+    class Meta:
+        db_table = 'measurements'
