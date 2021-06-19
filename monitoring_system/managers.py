@@ -24,21 +24,33 @@ class PrescriptionManager:
         self.patient = Patient.objects.get(uid=uid)
         self.patient.prescription_id = self.model_prec.id
         self.patient.save()
-        return self.patient
-
-    def get_prescription(self, request, uid):
-        patient = Patient.objects.get(uid=uid)
-        instance = Prescription.objects.get(patient_id=patient.id)
         model_info = {
-            'id': instance.id,
-            'type': instance.type,
-            'title': instance.title,
-            'description': instance.description,
-            'date_from': instance.date_from,
-            'date_to': instance.date_to,
+            'id': self.model_prec.id,
+            'type': self.model_prec.type,
+            'title': self.model_prec.title,
+            'description': self.model_prec.description,
+            'date_from': self.model_prec.date_from,
+            'date_to': self.model_prec.date_to,
             'patient_id': uid,
         }
         return model_info
+
+    def get_prescription(self, request, uid):
+        patient = Patient.objects.get(uid=uid)
+        query = Prescription.objects.filter(patient_id=patient.id)
+        list_per = []
+        for instance in query:
+            model_info = {
+                'id': instance.id,
+                'type': instance.type,
+                'title': instance.title,
+                'description': instance.description,
+                'date_from': instance.date_from,
+                'date_to': instance.date_to,
+                'patient_id': uid,
+            }
+            list_per.append(model_info)
+        return list_per
 
     def get_model_info(self, uid):
         model_info = {
