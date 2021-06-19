@@ -24,6 +24,7 @@ class PrescriptionManager:
         self.patient = Patient.objects.get(uid=uid)
         self.patient.prescription_id = self.model_prec.id
         self.patient.save()
+        self.model_prec.save()
         model_info = {
             'id': self.model_prec.id,
             'type': self.model_prec.type,
