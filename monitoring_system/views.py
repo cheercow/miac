@@ -35,7 +35,6 @@ class PatientMeasurementsView(APIView):
         return Response(status=200, data=measurements)
 
     def post(self, request, uid):
-        pass
         data = request.data
         patient = Patient.objects.get(uid=uid)
         measurement = Measurement.objects.create(uid=uuid.uuid4(),
@@ -45,6 +44,7 @@ class PatientMeasurementsView(APIView):
                                                  patient_id=patient.id)
         measurement_data = MeasurementSerializer(measurement).data
         return Response(status=201, data=measurement_data)
+
 
 class DoctorRegistryView(APIView):
     def post(self, request):
@@ -58,3 +58,10 @@ class DoctorAuthView(APIView):
         manager = DoctorAuthManager(request)
         user_uid = manager.auth_check()
         return Response(status=200, data=user_uid)
+
+
+class PatientAuthView(APIView):
+    def post(self, request):
+        data = request.data
+        patient = Patient.objects.get(snils=data['snils'])
+        return Response(status=200, data=patient.uid)

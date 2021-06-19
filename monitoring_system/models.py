@@ -41,6 +41,8 @@ class Patient(models.Model):
     passport = models.CharField(null=True, max_length=255)
     doctor_id = models.CharField(null=True, max_length=255)
     age = models.CharField(null=True, max_length=150)
+    snils = models.CharField(null=True, max_length=255)
+
 
     class Meta:
         db_table = 'patients'
