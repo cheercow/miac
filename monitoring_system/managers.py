@@ -20,7 +20,7 @@ class DoctorAuthManager:
                                                         last_name=self.last_name,
                                                         department=self.department)
         auth_instance = self.model_auth.objects.create(uid=uuid.uuid4(), login=self.login, password=self.password,
-                                                       doctor_uid=doc_instance.uid)
+                                                       doctor_id=doc_instance.id)
 
         return doc_instance.uid
 
@@ -29,4 +29,5 @@ class DoctorAuthManager:
         self.password = self.request_data.get('password')
         if self.model_auth.objects.get(login=self.login, password=self.password):
             auth_instance = self.model_auth.objects.get(login=self.login, password=self.password)
-            return auth_instance.doctor_uid
+            doctor = Doctor.objects.get(id=auth_instance.doctor_id)
+            return doctor.uid

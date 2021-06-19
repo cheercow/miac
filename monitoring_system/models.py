@@ -49,7 +49,7 @@ class Patient(models.Model):
 
 class Measurement(models.Model):
     uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
-    date = models.DateField(auto_now_add=True, null=True)
+    date = models.DateField(null=True, auto_now_add=True)
     upper_point = models.IntegerField(null=True)
     lower_point = models.IntegerField(null=True)
     pulse = models.IntegerField(null=True)
@@ -63,7 +63,7 @@ class AuthDoctor(models.Model):
     uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
     login = models.CharField(null=True, max_length=255)
     password = models.CharField(null=True, max_length=255)
-    doctor_uid = models.ForeignKey(Doctor, on_delete=models.PROTECT, null=True)
+    doctor_id = models.CharField(null=True, max_length=255)
 
     class Meta:
         db_table = 'auth_doctors'
