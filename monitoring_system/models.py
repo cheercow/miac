@@ -43,6 +43,7 @@ class Patient(models.Model):
     age = models.CharField(null=True, max_length=150)
     snils = models.CharField(null=True, max_length=255)
     medicine_id = models.CharField(null=True, max_length=255)
+    prescription_id = models.CharField(null=True, max_length=255)
 
     class Meta:
         db_table = 'patients'
@@ -77,3 +78,15 @@ class Medicine(models.Model):
 
     class Meta:
         db_table = 'medicines'
+
+
+class Prescription(models.Model):
+    type = models.BooleanField(null=True)
+    title = models.CharField(null=True, max_length=255)
+    description = models.CharField(null=True, max_length=255)
+    date_from = models.DateField(null=True)
+    date_to = models.DateField(null=True)
+    patient_id = models.CharField(null=True, max_length=255)
+
+    class Meta:
+        db_table = 'prescriptions'
