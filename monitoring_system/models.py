@@ -81,7 +81,7 @@ class Medicine(models.Model):
 
 
 class Prescription(models.Model):
-    type = models.BooleanField(null=True)
+    type = models.CharField(null=True, max_length=255)
     title = models.CharField(null=True, max_length=255)
     description = models.CharField(null=True, max_length=255)
     date_from = models.DateField(null=True)
