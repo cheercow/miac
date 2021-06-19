@@ -2,7 +2,7 @@ import uuid
 
 from rest_framework.views import APIView, Response
 
-from monitoring_system.managers import DoctorAuthManager
+from monitoring_system.managers import DoctorAuthManager, MedicineManager
 from monitoring_system.models import Patient, Measurement, Doctor
 from monitoring_system.serializers import PatientSerializer, MeasurementSerializer, DoctorSerializer
 
@@ -72,3 +72,10 @@ class PatientAuthView(APIView):
         data = request.data
         patient = Patient.objects.get(snils=data['snils'])
         return Response(status=200, data=patient.uid)
+
+
+class MedicinehView(APIView):
+    def get(self, request):
+        manager = MedicineManager()
+        meds = manager.get_meds()
+        return Response(status=200, data=meds)

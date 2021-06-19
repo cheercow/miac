@@ -1,7 +1,14 @@
 import uuid
 
-from monitoring_system.models import AuthDoctor, Doctor
+from monitoring_system.models import AuthDoctor, Doctor, Medicine
 
+
+class MedicineManager:
+    def __init__(self):
+        self.model = Medicine
+
+    def get_meds(self):
+        return self.model.objects.all()
 
 class DoctorAuthManager:
     def __init__(self, request):
