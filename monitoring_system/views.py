@@ -125,13 +125,13 @@ class MedicinehView(APIView):
 
 class PrescriptionView(APIView):
     def post(self, request, uid):
-        PrescriptionManager().set_prescription(request, uid)
-        return Response(status=200)
+        instance = PrescriptionManager().set_prescription(request, uid)
+        return Response(status=200,data=instance)
 
     def get(self, request, uid):
         info = PrescriptionManager().get_prescription(request, uid)
         return Response(status=200, data=info)
 
     def put(self, request, uid):
-        PrescriptionManager().put_prescription(request, uid)
-        return Response(status=200)
+        instance = PrescriptionManager().put_prescription(request, uid)
+        return Response(status=200,data=instance)
