@@ -81,7 +81,7 @@ class Medicine(models.Model):
 
 
 class Prescription(models.Model):
-    type = models.CharField(null=True, max_length=255)
+    type = models.IntegerField(null=True)
     title = models.CharField(null=True, max_length=255)
     description = models.CharField(null=True, max_length=255)
     date_from = models.DateField(null=True)
