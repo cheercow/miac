@@ -1,13 +1,43 @@
 import uuid
 
-from monitoring_system.models import AuthDoctor, Doctor, Medicine, Patient
+from monitoring_system.models import AuthDoctor, Doctor, Medicine, Patient, Prescription
+
+
+class PrescriptionManager:
+
+    def set_prescription(self, request, uid):
+        self.request_data = request.data
+        model_info = self.get_model_info(uid)
+        self.model_prec = Prescription(**self.request_data)
+
+    def get_prescription(self, request, uid):
+        instance = Prescription.objects.get(patient_id=uid)
+        model_info = {
+            'type': instance.type,
+            'title': instance.title,
+            'description': instance.description,
+            'date_from': instance.date_from,
+            'date_to': instance.date_to,
+            'patient_id': uid,
+        }
+        return model_info
+
+    def get_model_info(self, uid):
+        model_info = {
+            'type': self.request_data.get('type'),
+            'title': self.request_data.get('title'),
+            'description': self.request_data.get('description'),
+            'date_from': self.request_data.get('date_from'),
+            'date_to': self.request_data.get('date_to'),
+            'patient_id': uid,
+        }
+        return model_info
 
 
 class MedicineManager:
     def set_meds(self, request, uid):
         self.patient = Patient.objects.get(uid=uid)
         self.medicine = Medicine.objects.create(patient_id=self.patient.id, name=request.data.get('medicine'))
-
 
     def get_meds(self, request, uid):
         self.patient = Patient.objects.get(uid=uid)

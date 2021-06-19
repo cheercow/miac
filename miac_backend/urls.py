@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from monitoring_system.views import PatientView, PatientListView, PatientMeasurementsView, DoctorAuthView, \
     DoctorRegistryView, PatientAuthView, DoctorView, MedicinehView, PrivatePatientListView, PrivatePatientView, \
-    SearchPatientView
+    SearchPatientView, PrescriptionView
 
 urlpatterns = [
     path('api/doctors/<uid>/', DoctorView.as_view()),
@@ -32,4 +32,5 @@ urlpatterns = [
     path('api/registry/', DoctorRegistryView.as_view()),
     path('api/auth/', DoctorAuthView.as_view()),
     path('api/<uid>/medicine/', MedicinehView.as_view()),
+    path('api/<uid>/prescription/', PrescriptionView.as_view()),
 ]
