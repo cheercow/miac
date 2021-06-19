@@ -113,7 +113,7 @@ class PatientAuthView(APIView):
 
 
 class MedicinehView(APIView):
-    def get(self, request):
+    def get(self, request, uid):
         manager = MedicineManager()
         meds = manager.get_meds()
         return Response(status=200, data=meds)

@@ -31,5 +31,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/registry/', DoctorRegistryView.as_view()),
     path('api/auth/', DoctorAuthView.as_view()),
-    path('api/medicine/', MedicinehView.as_view()),
+    path('api/<uid>/medicine/', MedicinehView.as_view()),
 ]
