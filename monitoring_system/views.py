@@ -113,7 +113,11 @@ class PatientAuthView(APIView):
 
 
 class MedicinehView(APIView):
+
+    def post(self, request, uid):
+        MedicineManager().set_meds(request, uid)
+        return Response(status=200)
+
     def get(self, request, uid):
-        manager = MedicineManager()
-        meds = manager.get_meds()
-        return Response(status=200, data=meds)
+        MedicineManager().get_meds(request, uid)
+        return Response(status=200)

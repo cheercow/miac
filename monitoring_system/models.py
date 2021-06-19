@@ -42,6 +42,7 @@ class Patient(models.Model):
     doctor_id = models.CharField(null=True, max_length=255)
     age = models.CharField(null=True, max_length=150)
     snils = models.CharField(null=True, max_length=255)
+    medicine_id = models.CharField(null=True, max_length=255)
 
     class Meta:
         db_table = 'patients'
@@ -71,6 +72,7 @@ class AuthDoctor(models.Model):
 
 class Medicine(models.Model):
     name = models.CharField(null=True, max_length=255)
+    patient_id = models.CharField(null=True, max_length=255)
 
     class Meta:
         db_table = 'medicines'

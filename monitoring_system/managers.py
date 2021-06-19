@@ -1,14 +1,22 @@
 import uuid
 
-from monitoring_system.models import AuthDoctor, Doctor, Medicine
+from monitoring_system.models import AuthDoctor, Doctor, Medicine, Patient
 
 
 class MedicineManager:
-    def __init__(self):
-        self.model = Medicine
+    def set_meds(self, request, uid):
+        self.patient = Patient.objects.get(uid=uid)
+        self.medicine = Medicine.objects.create(patient_id=self.patient.id, name=request.data.get('medicine'))
 
-    def get_meds(self):
-        return self.model.objects.all()
+
+    def get_meds(self, request, uid):
+        self.patient = Patient.objects.get(uid=uid)
+        self.queryset = Medicine.objects.filter(patient_id=self.patient.id)
+        list_of_meds = []
+        for element in self.queryset:
+            list_of_meds.append(element.name)
+        return list_of_meds
+
 
 class DoctorAuthManager:
     def __init__(self, request):
