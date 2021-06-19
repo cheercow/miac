@@ -119,5 +119,5 @@ class MedicinehView(APIView):
         return Response(status=200)
 
     def get(self, request, uid):
-        MedicineManager().get_meds(request, uid)
-        return Response(status=200)
+        meds = MedicineManager().get_meds(request, uid)
+        return Response(status=200, data=meds)
