@@ -5,6 +5,17 @@ from monitoring_system.models import AuthDoctor, Doctor, Medicine, Patient, Pres
 
 class PrescriptionManager:
 
+    def put_prescription(self, request, uid):
+        self.request_data = request.data
+        model_info = self.get_model_info(uid)
+        self.model_prec = Prescription.objects.get(patient_id=uid)
+        self.model_prec.type = model_info.get('type')
+        self.model_prec.title = model_info.get('title')
+        self.model_prec.description = model_info.get('description')
+        self.model_prec.date_from = model_info.get('date_from')
+        self.model_prec.date_to = model_info.get('date_to')
+        self.model_prec.save()
+
     def set_prescription(self, request, uid):
         self.request_data = request.data
         model_info = self.get_model_info(uid)

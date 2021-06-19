@@ -131,3 +131,7 @@ class PrescriptionView(APIView):
     def get(self, request, uid):
         info = PrescriptionManager().get_prescription(request, uid)
         return Response(status=200, data=info)
+
+    def put(self, request, uid):
+        PrescriptionManager().put_prescription(request, uid)
+        return Response(status=200)
