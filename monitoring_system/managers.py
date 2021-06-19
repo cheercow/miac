@@ -15,6 +15,7 @@ class PrescriptionManager:
         self.model_prec.date_from = model_info.get('date_from')
         self.model_prec.date_to = model_info.get('date_to')
         self.model_prec.save()
+        return self.model_prec
 
     def set_prescription(self, request, uid):
         self.request_data = request.data
