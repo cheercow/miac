@@ -1,3 +1,5 @@
+import uuid
+
 from rest_framework.views import APIView, Response
 
 from monitoring_system.managers import DoctorAuthManager
@@ -32,6 +34,17 @@ class PatientMeasurementsView(APIView):
             measurements.append(measurement_data)
         return Response(status=200, data=measurements)
 
+    def post(self, request, uid):
+        pass
+        data = request.data
+        patient = Patient.objects.get(uid=uid)
+        measurement = Measurement.objects.create(uid=uuid.uuid4(),
+                                                 date=data['date'],
+                                                 upper_point=data['upper_point'],
+                                                 lower_point=data['lower_point'],
+                                                 patient_id=patient.id)
+        measurement_data = MeasurementSerializer(measurement).data
+        return Response(status=201, data=measurement_data)
 
 class DoctorRegistryView(APIView):
     def post(self, request):
