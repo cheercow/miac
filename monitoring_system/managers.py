@@ -20,6 +20,10 @@ class PrescriptionManager:
         self.request_data = request.data
         model_info = self.get_model_info(uid)
         self.model_prec = Prescription(**self.request_data)
+        self.patient = Patient.objects.get(uid=uid)
+        self.patient.prescription_id = self.model_prec.id
+        self.patient.save()
+        return self.patient
 
     def get_prescription(self, request, uid):
         patient = Patient.objects.get(uid=uid)

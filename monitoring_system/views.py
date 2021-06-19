@@ -125,8 +125,8 @@ class MedicinehView(APIView):
 
 class PrescriptionView(APIView):
     def post(self, request, uid):
-        PrescriptionManager().set_prescription(request, uid)
-        return Response(status=200)
+        info = PrescriptionManager().set_prescription(request, uid)
+        return Response(status=200, data=info)
 
     def get(self, request, uid):
         info = PrescriptionManager().get_prescription(request, uid)
@@ -135,3 +135,15 @@ class PrescriptionView(APIView):
     def put(self, request, uid):
         PrescriptionManager().put_prescription(request, uid)
         return Response(status=200)
+
+
+class GoogleFitView(APIView):
+    request_body = {
+        "aggregateBy": [{
+            "dataTypeName": "com.google.step_count.delta",
+            "dataSourceId": "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
+        }],
+        "bucketByTime": {"durationMillis": 86400000},
+        "startTimeMillis": 1438705622000,
+        "endTimeMillis": 1439310422000
+    }
