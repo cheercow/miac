@@ -13,6 +13,7 @@ class PrescriptionManager:
     def get_prescription(self, request, uid):
         instance = Prescription.objects.get(patient_id=uid)
         model_info = {
+            'id': instance.id,
             'type': instance.type,
             'title': instance.title,
             'description': instance.description,
