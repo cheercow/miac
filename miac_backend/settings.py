@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)fm!mzn5p&s58wwy+*&m=l_k66p2b%*)amgwwyrj4!h$*3%945
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'monitoring_system'
 ]
 
@@ -69,6 +70,20 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer'
+    ),
+
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser'
+    ),
+}
+
 WSGI_APPLICATION = 'miac_backend.wsgi.application'
 
 
@@ -79,8 +94,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'monitoring_system',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'miac',
+        'PASSWORD': 'miac',
         'HOST': '127.0.0.1',
         'PORT': 5432
     }
