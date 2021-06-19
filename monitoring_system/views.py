@@ -1,5 +1,6 @@
 from rest_framework.views import APIView, Response
 
+from monitoring_system.managers import DoctorAuthManager
 from monitoring_system.models import Patient, Measurement
 from monitoring_system.serializers import PatientSerializer, MeasurementSerializer
 
@@ -30,3 +31,17 @@ class PatientMeasurementsView(APIView):
             measurement_data = MeasurementSerializer(measurement).data
             measurements.append(measurement_data)
         return Response(status=200, data=measurements)
+
+
+class DoctorRegistryView(APIView):
+    def post(self, request):
+        manager = DoctorAuthManager(request)
+        user_uid = manager.registry_doc()
+        return Response(status=200, data=user_uid)
+
+
+class DoctorAuthView(APIView):
+    def post(self, request):
+        manager = DoctorAuthManager(request)
+        user_uid = manager.auth_check()
+        return Response(status=200, data=user_uid)

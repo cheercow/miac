@@ -55,3 +55,12 @@ class Measurement(models.Model):
 
     class Meta:
         db_table = 'measurements'
+
+
+class AuthDoctor(models.Model):
+    uid = models.UUIDField(default=uuid.UUID, null=False, db_index=True)
+    login = models.CharField(null=True, max_length=255)
+    password = models.CharField(null=True, max_length=255)
+
+    class Meta:
+        db_table = 'auth_doctors'
