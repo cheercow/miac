@@ -31,6 +31,44 @@ class PatientListView(APIView):
         return Response(status=200, data=patients)
 
 
+class PrivatePatientListView(APIView):
+    def get(self, request):
+        doctor_uid = request.headers['X-AUTH']
+        doctor = Doctor.objects.get(uid=doctor_uid)
+        patients = []
+        patient_list = Patient.objects.filter(doctor_id=doctor.id)
+        for patient in patient_list:
+            patient_data = PatientSerializer(patient).data
+            patients.append(patient_data)
+        return Response(status=200, data=patients)
+
+
+class PrivatePatientView(APIView):
+    def post(self, request, uid):
+        doctor_uid = request.headers['X-AUTH']
+        doctor = Doctor.objects.get(uid=doctor_uid)
+        patient = Patient.objects.get(uid=uid)
+        patient.doctor_id = doctor.id
+        patient.save()
+        return Response(status=200)
+
+    def delete(self, request, uid):
+        patient = Patient.objects.get(uid=uid)
+        patient.doctor_id = None
+        patient.save()
+        return Response(status=200)
+
+
+class SearchPatientView(APIView):
+    def get(self, request, term):
+        patients = []
+        patient_list = Patient.objects.filter(first_name=term.split[0], last_name=term.split[1])
+        for patient in patient_list:
+            patient_data = PatientSerializer(patient).data
+            patients.append(patient_data)
+        return Response(status=200, data=patients)
+
+
 class PatientMeasurementsView(APIView):
     def get(self, request, uid):
         measurements = []

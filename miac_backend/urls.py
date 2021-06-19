@@ -16,13 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from monitoring_system.views import PatientView, PatientListView, PatientMeasurementsView, DoctorAuthView, \
-    DoctorRegistryView, PatientAuthView, DoctorView, MedicinehView
+    DoctorRegistryView, PatientAuthView, DoctorView, MedicinehView, PrivatePatientListView, PrivatePatientView, \
+    SearchPatientView
 
 urlpatterns = [
     path('api/doctors/<uid>/', DoctorView.as_view()),
     path('api/patients/auth/', PatientAuthView.as_view()),
     path('api/patients/<uid>/', PatientView.as_view()),
     path('api/patients/', PatientListView.as_view()),
+    path('api/patients/<term>/', SearchPatientView.as_view()),
+    path('api/patients/private', PrivatePatientListView.as_view()),
+    path('api/patients/private/<uid>/', PrivatePatientView.as_view()),
     path('api/measurements/<uid>/', PatientMeasurementsView.as_view()),
     path('admin/', admin.site.urls),
     path('api/registry/', DoctorRegistryView.as_view()),
