@@ -54,6 +54,7 @@ class Measurement(models.Model):
     upper_point = models.IntegerField(null=True)
     lower_point = models.IntegerField(null=True)
     pulse = models.IntegerField(null=True)
+    activity = models.CharField(null=True, max_length=255)
     patient_id = models.CharField(null=True, max_length=255)
 
     class Meta:
