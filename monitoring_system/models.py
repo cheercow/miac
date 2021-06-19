@@ -67,3 +67,10 @@ class AuthDoctor(models.Model):
 
     class Meta:
         db_table = 'auth_doctors'
+
+
+class Medicine(models.Model):
+    name = models.CharField(null=True, max_length=255)
+
+    class Meta:
+        db_table = 'medicines'
